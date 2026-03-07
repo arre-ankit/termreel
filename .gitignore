@@ -1,0 +1,8 @@
+node_modules/
+dist/
+*.gif
+*.mp4
+*.webm
+*.tape
+!examples/
+.env

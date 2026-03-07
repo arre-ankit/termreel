@@ -1,0 +1,44 @@
+{
+  "name": "termreel",
+  "version": "0.0.1",
+  "description": "AI-powered terminal demo recorder — describe your demo, get a GIF",
+  "type": "module",
+  "bin": {
+    "termreel": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "lint": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.39.0",
+    "@clack/prompts": "^0.9.1",
+    "@inquirer/search": "^4.1.4",
+    "clipboardy": "^4.0.0",
+    "commander": "^13.1.0",
+    "figlet": "^1.8.0",
+    "openai": "^6.27.0",
+    "ora": "^8.2.0",
+    "picocolors": "^1.1.1"
+  },
+  "devDependencies": {
+    "@types/figlet": "^1.7.0",
+    "@types/node": "^22.13.10",
+    "tsup": "^8.4.0",
+    "typescript": "^5.8.2",
+    "vitest": "^3.0.8"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@anthropic-ai/sdk",
+      "esbuild"
+    ]
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
