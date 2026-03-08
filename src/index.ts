@@ -26,6 +26,10 @@ program.addHelpText('beforeAll', () => {
   return ''
 })
 
+program.hook('preAction', () => {
+  printBanner()
+})
+
 program.addCommand(newCommand)
 program.addCommand(runCommand)
 program.addCommand(themesCommand)
