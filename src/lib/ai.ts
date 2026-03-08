@@ -1,5 +1,7 @@
-import Anthropic from '@anthropic-ai/sdk'
-import OpenAI from 'openai'
+import { generateText } from 'ai'
+import { createAnthropic } from '@ai-sdk/anthropic'
+import { createOpenAI } from '@ai-sdk/openai'
+import type { LanguageModel } from 'ai'
 import { findTheme, themeToVHSString } from './themes.js'
 import { VHS_SYSTEM_PROMPT, NAME_SYSTEM_PROMPT, REFINE_SYSTEM_PROMPT, FIX_SYSTEM_PROMPT } from './prompt.js'
 
@@ -86,40 +88,18 @@ function stripCodeFences(text: string): string {
   return text.replace(/^```[a-z]*\n?/, '').replace(/\n?```$/, '').trim()
 }
 
-async function callAnthropic(apiKey: string, model: string, system: string, user: string, maxTokens = 2048): Promise<string> {
-  const client = new Anthropic({ apiKey })
-  const message = await client.messages.create({
-    model,
-    max_tokens: maxTokens,
-    system,
-    messages: [{ role: 'user', content: user }],
-  })
-  const content = message.content[0]
-  if (content.type !== 'text') throw new Error('Unexpected response type from Anthropic API')
-  return content.text.trim()
-}
-
-async function callOpenAI(apiKey: string, model: string, system: string, user: string, maxTokens = 2048): Promise<string> {
-  const client = new OpenAI({ apiKey })
-  const response = await client.chat.completions.create({
-    model,
-    max_tokens: maxTokens,
-    messages: [
-      { role: 'system', content: system },
-      { role: 'user', content: user },
-    ],
-  })
-  const text = response.choices[0]?.message?.content
-  if (!text) throw new Error('Empty response from OpenAI API')
-  return text.trim()
-}
-
-async function callProvider(provider: Provider, apiKey: string, model: string, system: string, user: string, maxTokens?: number): Promise<string> {
+function resolveModel(provider: Provider, apiKey: string, modelId: string): LanguageModel {
   switch (provider) {
-    case 'anthropic': return callAnthropic(apiKey, model, system, user, maxTokens)
-    case 'openai': return callOpenAI(apiKey, model, system, user, maxTokens)
+    case 'anthropic': return createAnthropic({ apiKey })(modelId)
+    case 'openai': return createOpenAI({ apiKey })(modelId)
     default: throw new Error(`Unknown provider: ${provider}`)
   }
+}
+
+async function callProvider(provider: Provider, apiKey: string, modelId: string, system: string, user: string, maxTokens = 2048): Promise<string> {
+  const model = resolveModel(provider, apiKey, modelId)
+  const { text } = await generateText({ model, system, prompt: user, maxOutputTokens: maxTokens })
+  return text.trim()
 }
 
 export async function generateTape(apiKey: string, params: GenerateTapeParams): Promise<string> {
