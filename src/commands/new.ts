@@ -7,6 +7,7 @@ import { resolve } from 'path'
 import { getApiKey, saveApiKey, getProvider, saveProvider } from '../lib/config.js'
 import { generateTape, generateName, refineTape, fixTape, PROVIDERS, type Provider } from '../lib/ai.js'
 import { selectTheme } from '../lib/themes.js'
+import { selectFont, DEFAULT_FONT } from '../lib/fonts.js'
 import { checkVHSInstalled, printVHSInstallInstructions, runVHS } from '../lib/vhs.js'
 
 const DIMENSION_PRESETS = [
@@ -247,6 +248,9 @@ export const newCommand = new Command('new')
     const theme = await selectTheme('Catppuccin Mocha')
     if (!theme) { p.cancel('Cancelled.'); process.exit(0) }
 
+    const font = await selectFont(DEFAULT_FONT.name)
+    if (!font) { p.cancel('Cancelled.'); process.exit(0) }
+
     const dimensionPreset = await p.select({
       message: 'Terminal dimensions',
       options: DIMENSION_PRESETS,
@@ -294,6 +298,7 @@ export const newCommand = new Command('new')
         outputName: (outputName as string) || suggestedName,
         formats: formats as Array<'gif' | 'mp4' | 'webm'>,
         theme: theme.name,
+        font: font.vhsName,
         width,
         height,
         provider,

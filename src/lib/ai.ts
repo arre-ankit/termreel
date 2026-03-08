@@ -80,6 +80,7 @@ export interface GenerateTapeParams {
   outputName: string
   formats: Array<'gif' | 'mp4' | 'webm'>
   theme: string
+  font: string
   width: number
   height: number
   marginFill?: string
@@ -114,11 +115,13 @@ Use these exact configuration values in the settings block:
 ${outputLines}
 Set Width ${params.width}
 Set Height ${params.height}
+Set FontFamily "${params.font}"
 Set Margin 20
 Set MarginFill "${params.marginFill ?? '#1E1E3F'}"
 Set Theme THEME_PLACEHOLDER
 
 IMPORTANT: You MUST include the line "Set Theme THEME_PLACEHOLDER" exactly as shown above. Do not replace it with a theme name or JSON. It will be replaced with the correct theme (${params.theme}) automatically.
+IMPORTANT: You MUST include "Set FontFamily "${params.font}"" exactly as shown. Do not change the font.
 
 Make the demo polished, professional, and engaging. Show realistic commands with proper timing that tells a clear story.`
 }
@@ -164,11 +167,29 @@ async function callProvider(provider: Provider, apiKey: string, modelId: string,
   return text.trim()
 }
 
+function injectFont(tape: string, fontName: string): string {
+  const fontLine = `Set FontFamily "${fontName}"`
+  if (/^Set FontFamily .+$/m.test(tape)) {
+    return tape.replace(/^Set FontFamily .+$/m, fontLine)
+  }
+  // Insert after Set FontSize if present, otherwise after last Set command
+  if (/^Set FontSize .+$/m.test(tape)) {
+    return tape.replace(/^(Set FontSize .+)$/m, `$1\n${fontLine}`)
+  }
+  const lastSetMatch = [...tape.matchAll(/^Set .+$/gm)].at(-1)
+  if (lastSetMatch?.index !== undefined) {
+    const insertAt = lastSetMatch.index + lastSetMatch[0].length
+    return tape.slice(0, insertAt) + '\n' + fontLine + tape.slice(insertAt)
+  }
+  return tape
+}
+
 export async function generateTape(apiKey: string, params: GenerateTapeParams): Promise<string> {
   const model = params.model ?? PROVIDERS[params.provider].defaultModel
   let tape = await callProvider(params.provider, apiKey, model, VHS_SYSTEM_PROMPT, buildTapeUserMessage(params))
   tape = stripCodeFences(tape)
   tape = injectThemeJson(tape, params.theme)
+  tape = injectFont(tape, params.font)
   return tape
 }
 
