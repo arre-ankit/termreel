@@ -49,6 +49,22 @@ export function runVHS(tapePath: string): Promise<void> {
   })
 }
 
+export function injectFontIntoTape(tapeContent: string, fontName: string): string {
+  const fontLine = `Set FontFamily "${fontName}"`
+  if (/^Set FontFamily .+$/m.test(tapeContent)) {
+    return tapeContent.replace(/^Set FontFamily .+$/m, fontLine)
+  }
+  if (/^Set FontSize .+$/m.test(tapeContent)) {
+    return tapeContent.replace(/^(Set FontSize .+)$/m, `$1\n${fontLine}`)
+  }
+  const lastSetMatch = [...tapeContent.matchAll(/^Set .+$/gm)].at(-1)
+  if (lastSetMatch?.index !== undefined) {
+    const insertAt = lastSetMatch.index + lastSetMatch[0].length
+    return tapeContent.slice(0, insertAt) + '\n' + fontLine + tapeContent.slice(insertAt)
+  }
+  return tapeContent
+}
+
 export function injectThemeIntoTape(tapeContent: string, themeJson: string): string {
   const setThemeRegex = /^Set Theme .+$/m
   const themeDirective = `Set Theme ${themeJson}`
