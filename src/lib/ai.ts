@@ -110,12 +110,15 @@ function buildTapeUserMessage(params: GenerateTapeParams): string {
 
 ${params.description}
 
-Use these exact configuration values:
-- Output lines: ${outputLines}
-- Width: ${params.width}
-- Height: ${params.height}
-- MarginFill: "${params.marginFill ?? '#1E1E3F'}"
-- Theme line: Set Theme THEME_PLACEHOLDER (write this exactly, do not change it)
+Use these exact configuration values in the settings block:
+${outputLines}
+Set Width ${params.width}
+Set Height ${params.height}
+Set Margin 20
+Set MarginFill "${params.marginFill ?? '#1E1E3F'}"
+Set Theme THEME_PLACEHOLDER
+
+IMPORTANT: You MUST include the line "Set Theme THEME_PLACEHOLDER" exactly as shown above. Do not replace it with a theme name or JSON. It will be replaced with the correct theme (${params.theme}) automatically.
 
 Make the demo polished, professional, and engaging. Show realistic commands with proper timing that tells a clear story.`
 }
@@ -123,7 +126,22 @@ Make the demo polished, professional, and engaging. Show realistic commands with
 function injectThemeJson(tape: string, themeName: string): string {
   const theme = findTheme(themeName)
   const themeValue = theme ? themeToVHSString(theme) : `"${themeName}"`
-  return tape.replace(/^Set Theme .+$/m, `Set Theme ${themeValue}`)
+  const themeLine = `Set Theme ${themeValue}`
+
+  // Replace any existing Set Theme line (THEME_PLACEHOLDER or hardcoded)
+  if (/^Set Theme .+$/m.test(tape)) {
+    return tape.replace(/^Set Theme .+$/m, themeLine)
+  }
+
+  // No Set Theme line — insert after the last Set command block
+  const lastSetMatch = [...tape.matchAll(/^Set .+$/gm)].at(-1)
+  if (lastSetMatch?.index !== undefined) {
+    const insertAt = lastSetMatch.index + lastSetMatch[0].length
+    return tape.slice(0, insertAt) + '\n' + themeLine + tape.slice(insertAt)
+  }
+
+  // Fallback: prepend after Output lines
+  return tape.replace(/^((?:Output .+\n)+)/m, `$1${themeLine}\n`)
 }
 
 function stripCodeFences(text: string): string {
