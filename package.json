@@ -2,10 +2,32 @@
   "name": "termreel",
   "version": "0.0.1",
   "description": "AI-powered terminal demo recorder — describe your demo, get a GIF",
+  "license": "MIT",
+  "repository": "arre-ankit/termreel",
+  "author": {
+    "name": "Ankit Kumar",
+    "email": "arre.ankit@gmail.com",
+    "url": "https://x.com/arre_ankit"
+  },
+  "keywords": [
+    "terminal",
+    "demo",
+    "recorder",
+    "vhs",
+    "gif",
+    "ai",
+    "cli",
+    "tape",
+    "theme",
+    "screencast"
+  ],
   "type": "module",
   "bin": {
     "termreel": "./dist/index.js"
   },
+    "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
