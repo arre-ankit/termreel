@@ -1,11 +1,13 @@
 import { generateText } from 'ai'
 import { createAnthropic } from '@ai-sdk/anthropic'
 import { createOpenAI } from '@ai-sdk/openai'
+import { createGoogleGenerativeAI } from '@ai-sdk/google'
+import { createMistral } from '@ai-sdk/mistral'
 import type { LanguageModel } from 'ai'
 import { findTheme, themeToVHSString } from './themes.js'
 import { VHS_SYSTEM_PROMPT, NAME_SYSTEM_PROMPT, REFINE_SYSTEM_PROMPT, FIX_SYSTEM_PROMPT } from './prompt.js'
 
-export type Provider = 'anthropic' | 'openai'
+export type Provider = 'anthropic' | 'openai' | 'google' | 'mistral'
 
 export const PROVIDERS: Record<Provider, {
   label: string
@@ -17,19 +19,59 @@ export const PROVIDERS: Record<Provider, {
 }> = {
   anthropic: {
     label: 'Anthropic (Claude)',
-    models: ['claude-opus-4-5', 'claude-sonnet-4-5', 'claude-haiku-4-5'],
-    defaultModel: 'claude-sonnet-4-5',
+    models: [
+      'claude-opus-4-6',
+      'claude-sonnet-4-6',
+      'claude-opus-4-5',
+      'claude-sonnet-4-5',
+      'claude-haiku-4-5',
+    ],
+    defaultModel: 'claude-sonnet-4-6',
     keyPrefix: 'sk-ant-',
     keyHint: 'sk-ant-...',
     docsUrl: 'https://console.anthropic.com',
   },
   openai: {
     label: 'OpenAI (GPT)',
-    models: ['gpt-4.1', 'gpt-4.1-mini', 'gpt-4o', 'o4-mini'],
-    defaultModel: 'gpt-4.1',
+    models: [
+      'gpt-5.4',
+      'gpt-5.4-pro',
+      'gpt-5.3-chat-latest',
+      'gpt-5.2',
+      'gpt-5',
+      'gpt-5-mini',
+    ],
+    defaultModel: 'gpt-5.4',
     keyPrefix: 'sk-',
     keyHint: 'sk-...',
     docsUrl: 'https://platform.openai.com/api-keys',
+  },
+  google: {
+    label: 'Google (Gemini)',
+    models: [
+      'gemini-3.1-pro-preview',
+      'gemini-3-flash-preview',
+      'gemini-2.5-pro',
+      'gemini-2.5-flash',
+      'gemini-2.5-flash-lite',
+    ],
+    defaultModel: 'gemini-2.5-flash',
+    keyPrefix: 'AIza',
+    keyHint: 'AIzaSy...',
+    docsUrl: 'https://aistudio.google.com/app/apikey',
+  },
+  mistral: {
+    label: 'Mistral AI',
+    models: [
+      'mistral-large-3',
+      'mistral-medium-3',
+      'magistral-medium',
+      'mistral-small-3.1',
+    ],
+    defaultModel: 'mistral-large-3',
+    keyPrefix: '',
+    keyHint: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+    docsUrl: 'https://console.mistral.ai/api-keys',
   },
 }
 
@@ -92,6 +134,8 @@ function resolveModel(provider: Provider, apiKey: string, modelId: string): Lang
   switch (provider) {
     case 'anthropic': return createAnthropic({ apiKey })(modelId)
     case 'openai': return createOpenAI({ apiKey })(modelId)
+    case 'google': return createGoogleGenerativeAI({ apiKey })(modelId)
+    case 'mistral': return createMistral({ apiKey })(modelId)
     default: throw new Error(`Unknown provider: ${provider}`)
   }
 }

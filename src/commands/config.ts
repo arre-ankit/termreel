@@ -4,6 +4,13 @@ import pc from 'picocolors'
 import { getApiKey, getProvider, saveApiKey, saveProvider, getConfigPath } from '../lib/config.js'
 import { PROVIDERS, type Provider } from '../lib/ai.js'
 
+function maskKey(key: string, prefix: string): string {
+  if (!key) return pc.gray('not set')
+  const visible = key.slice(-4)
+  const maskedPrefix = prefix || key.slice(0, 4)
+  return pc.green(`${maskedPrefix}***${visible}`)
+}
+
 export const configCommand = new Command('config')
   .description('View and update API keys and provider settings')
   .action(async () => {
@@ -12,20 +19,27 @@ export const configCommand = new Command('config')
     const currentProvider = getProvider()
     const anthropicKey = getApiKey('anthropic')
     const openaiKey = getApiKey('openai')
+    const googleKey = getApiKey('google')
+    const mistralKey = getApiKey('mistral')
 
     console.log()
-    console.log(pc.gray('  Current config: ') + pc.white(getConfigPath()))
+    console.log(pc.gray('  Config: ') + pc.white(getConfigPath()))
     console.log()
-    console.log(`  ${pc.gray('provider')}    ${currentProvider ? pc.cyan(currentProvider) : pc.gray('not set')}`)
-    console.log(`  ${pc.gray('anthropic')}   ${anthropicKey ? pc.green('sk-ant-***' + anthropicKey.slice(-4)) : pc.gray('not set')}`)
-    console.log(`  ${pc.gray('openai')}      ${openaiKey ? pc.green('sk-***' + openaiKey.slice(-4)) : pc.gray('not set')}`)
+    console.log(`  ${pc.gray('provider')}    ${currentProvider ? pc.cyan(PROVIDERS[currentProvider].label) : pc.gray('not set')}`)
+    console.log()
+    console.log(`  ${pc.gray('anthropic')}   ${anthropicKey ? maskKey(anthropicKey, 'sk-ant-') : pc.gray('not set')}`)
+    console.log(`  ${pc.gray('openai')}      ${openaiKey ? maskKey(openaiKey, 'sk-') : pc.gray('not set')}`)
+    console.log(`  ${pc.gray('google')}      ${googleKey ? maskKey(googleKey, 'AIza') : pc.gray('not set')}`)
+    console.log(`  ${pc.gray('mistral')}     ${mistralKey ? maskKey(mistralKey, '') : pc.gray('not set')}`)
     console.log()
 
     const action = await p.select({
       message: 'What would you like to do?',
       options: [
-        { value: 'anthropic', label: 'Set Anthropic API key' },
-        { value: 'openai', label: 'Set OpenAI API key' },
+        { value: 'anthropic', label: 'Set Anthropic API key', hint: 'console.anthropic.com' },
+        { value: 'openai', label: 'Set OpenAI API key', hint: 'platform.openai.com/api-keys' },
+        { value: 'google', label: 'Set Google API key', hint: 'aistudio.google.com/app/apikey' },
+        { value: 'mistral', label: 'Set Mistral API key', hint: 'console.mistral.ai/api-keys' },
         { value: 'provider', label: 'Change default provider' },
         { value: 'done', label: 'Nothing, just viewing' },
       ],
@@ -59,7 +73,7 @@ export const configCommand = new Command('config')
 
     if (existing) {
       console.log()
-      console.log(pc.gray(`  Current: sk-***${existing.slice(-4)}`))
+      console.log(pc.gray(`  Current: ${maskKey(existing, meta.keyPrefix)}`))
       console.log()
     }
 
@@ -67,8 +81,10 @@ export const configCommand = new Command('config')
       message: `Enter new ${meta.label} API key`,
       placeholder: meta.keyHint,
       validate: (v) => {
-        if (!v.startsWith(meta.keyPrefix)) return `Key must start with ${meta.keyPrefix}`
-        if (v.length < 20) return 'API key looks too short'
+        if (meta.keyPrefix && !v.startsWith(meta.keyPrefix)) {
+          return `Key must start with ${meta.keyPrefix}`
+        }
+        if (v.length < 16) return 'API key looks too short'
       },
     })
 
