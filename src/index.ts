@@ -6,6 +6,7 @@ import { printBanner } from './utils/banner.js'
 import { newCommand } from './commands/new.js'
 import { runCommand } from './commands/run.js'
 import { themesCommand } from './commands/themes.js'
+import { configCommand } from './commands/config.js'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const pkg = JSON.parse(
@@ -33,5 +34,6 @@ program.hook('preAction', () => {
 program.addCommand(newCommand)
 program.addCommand(runCommand)
 program.addCommand(themesCommand)
+program.addCommand(configCommand)
 
 program.parse()

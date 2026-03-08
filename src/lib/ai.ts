@@ -16,15 +16,15 @@ export const PROVIDERS: Record<Provider, {
   anthropic: {
     label: 'Anthropic (Claude)',
     models: ['claude-opus-4-5', 'claude-sonnet-4-5', 'claude-haiku-4-5'],
-    defaultModel: 'claude-opus-4-5',
+    defaultModel: 'claude-sonnet-4-5',
     keyPrefix: 'sk-ant-',
     keyHint: 'sk-ant-...',
     docsUrl: 'https://console.anthropic.com',
   },
   openai: {
     label: 'OpenAI (GPT)',
-    models: ['gpt-4o', 'gpt-4o-mini', 'gpt-4-turbo'],
-    defaultModel: 'gpt-4o',
+    models: ['gpt-4.1', 'gpt-4.1-mini', 'gpt-4o', 'o4-mini'],
+    defaultModel: 'gpt-4.1',
     keyPrefix: 'sk-',
     keyHint: 'sk-...',
     docsUrl: 'https://platform.openai.com/api-keys',
