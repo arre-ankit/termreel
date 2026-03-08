@@ -18,8 +18,11 @@ go install github.com/charmbracelet/vhs@latest
 ## Install
 
 ```sh
+# run without installing
+npx termreel new
+
+# or install globally
 npm install -g termreel
-# or
 pnpm add -g termreel
 ```
 
@@ -29,7 +32,9 @@ pnpm add -g termreel
 
 The flagship command. An interactive AI wizard that generates a `.tape` file and records it.
 
-```
+```sh
+npx termreel new
+# or
 termreel new
 ```
 
@@ -53,9 +58,9 @@ If VHS fails to render, termreel automatically sends the error back to the AI to
 Run an existing `.tape` file with an optional theme override.
 
 ```sh
-termreel run demo.tape
-termreel run demo.tape --theme "Dracula"
-termreel run demo.tape --no-theme
+npx termreel run demo.tape
+npx termreel run demo.tape --theme "Dracula"
+npx termreel run demo.tape --no-theme
 ```
 
 | Flag | Description |
@@ -72,7 +77,7 @@ Theme injection writes to a temp file — your original tape is never modified.
 Browse all 200+ bundled themes with live color previews.
 
 ```sh
-termreel themes
+npx termreel themes
 ```
 
 Fuzzy-search by name, see a full color swatch for each theme, then copy the theme name or the full `Set Theme {...}` directive to your clipboard.
