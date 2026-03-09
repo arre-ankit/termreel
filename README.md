@@ -34,8 +34,6 @@ The flagship command. An interactive AI wizard that generates a `.tape` file and
 
 ```sh
 npx termreel new
-# or
-termreel new
 ```
 
 **What it does:**
@@ -116,3 +114,6 @@ pnpm test        # vitest
 pnpm typecheck   # tsc --noEmit
 pnpm build       # tsup → dist/
 ```
+## Attribution
+
+Made by (human) [Ankit Kumar](https://x.com/arre_ankit) and (agent) [Command Code](https://commandcode.ai).
