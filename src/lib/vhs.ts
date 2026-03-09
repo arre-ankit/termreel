@@ -14,11 +14,12 @@ export function printVHSInstallInstructions(): void {
   console.log()
   console.log(pc.red('✖') + ' ' + pc.bold('VHS is not installed.'))
   console.log()
-  console.log('  Install it with one of:')
-  console.log()
-  console.log('  ' + pc.cyan('brew install vhs') + '                              (macOS)')
-  console.log('  ' + pc.cyan('go install github.com/charmbracelet/vhs@latest') + '  (Go)')
-  console.log('  ' + pc.cyan('https://github.com/charmbracelet/vhs#installation') + '  (other)')
+  if (process.platform === 'win32') {
+    console.log('  Install VHS for Windows:')
+    console.log('  ' + pc.cyan('https://github.com/charmbracelet/vhs?tab=readme-ov-file#installation'))
+  } else {
+    console.log('  Run:  ' + pc.cyan('brew install vhs'))
+  }
   console.log()
 }
 
