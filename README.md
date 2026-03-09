@@ -1,8 +1,8 @@
 # termreel
 
-AI-powered terminal demo recorder. Describe what you want to demo in plain English — termreel generates a [VHS](https://github.com/charmbracelet/vhs) tape file, records it into a GIF/MP4/WebM, and lets you refine it with AI in a loop.
+![termreel cover](https://raw.githubusercontent.com/arre-ankit/termreel/refs/heads/main/.github/cover.svg)
 
-![termreel demo](https://raw.githubusercontent.com/ankitkumar/termreel/refs/heads/main/.github/demo.gif)
+AI-powered terminal demo recorder. Describe what you want to demo in plain English — termreel generates a [VHS](https://github.com/charmbracelet/vhs) tape file, records it into a GIF/MP4/WebM, and lets you refine it with AI in a loop.
 
 ## Prerequisites
 

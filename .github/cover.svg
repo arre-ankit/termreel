@@ -1,0 +1,127 @@
+<svg width="1280" height="640" viewBox="0 0 1280 640" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1280" y2="640" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0a0a14"/>
+      <stop offset="100%" stop-color="#0d0d1f"/>
+    </linearGradient>
+    <linearGradient id="termGrad" x1="160" y1="140" x2="1120" y2="500" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#1a1a2e"/>
+      <stop offset="100%" stop-color="#16213e"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#7c3aed"/>
+      <stop offset="50%" stop-color="#a855f7"/>
+      <stop offset="100%" stop-color="#ec4899"/>
+    </linearGradient>
+    <linearGradient id="titleGrad" x1="400" y1="0" x2="880" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#a78bfa"/>
+      <stop offset="50%" stop-color="#e879f9"/>
+      <stop offset="100%" stop-color="#f472b6"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="softglow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <!-- grid pattern -->
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#ffffff" stroke-width="0.15" opacity="0.08"/>
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1280" height="640" fill="url(#bg)"/>
+  <rect width="1280" height="640" fill="url(#grid)"/>
+
+  <!-- Ambient glow blobs -->
+  <ellipse cx="200" cy="150" rx="300" ry="200" fill="#7c3aed" opacity="0.06"/>
+  <ellipse cx="1080" cy="490" rx="280" ry="180" fill="#ec4899" opacity="0.06"/>
+  <ellipse cx="640" cy="320" rx="400" ry="250" fill="#6d28d9" opacity="0.04"/>
+
+  <!-- Terminal window -->
+  <rect x="140" y="130" width="1000" height="380" rx="12" fill="url(#termGrad)" stroke="#2a2a4a" stroke-width="1.5"/>
+
+  <!-- Window bar -->
+  <rect x="140" y="130" width="1000" height="44" rx="12" fill="#1e1e35"/>
+  <rect x="140" y="154" width="1000" height="20" fill="#1e1e35"/>
+
+  <!-- Traffic lights -->
+  <circle cx="176" cy="152" r="7" fill="#ff5f57"/>
+  <circle cx="200" cy="152" r="7" fill="#febc2e"/>
+  <circle cx="224" cy="152" r="7" fill="#28c840"/>
+
+  <!-- Window title -->
+  <text x="640" y="157" font-family="ui-monospace, 'SF Mono', 'Cascadia Code', monospace" font-size="13" fill="#6b7280" text-anchor="middle" dominant-baseline="middle">termreel — AI tape generator</text>
+
+  <!-- Accent top border line -->
+  <rect x="140" y="130" width="1000" height="3" rx="2" fill="url(#accentGrad)" opacity="0.8"/>
+
+  <!-- Terminal content -->
+
+  <!-- Prompt line 1 -->
+  <text x="180" y="218" font-family="ui-monospace, 'SF Mono', 'Cascadia Code', monospace" font-size="15" fill="#a78bfa">❯</text>
+  <text x="202" y="218" font-family="ui-monospace, 'SF Mono', 'Cascadia Code', monospace" font-size="15" fill="#e2e8f0">npx termreel new</text>
+
+  <!-- Output lines -->
+  <text x="180" y="248" font-family="ui-monospace, 'SF Mono', 'Cascadia Code', monospace" font-size="13.5" fill="#6b7280">┌  termreel new — AI tape generator</text>
+  <text x="180" y="272" font-family="ui-monospace, 'SF Mono', 'Cascadia Code', monospace" font-size="13.5" fill="#6b7280">│</text>
+  <text x="196" y="272" font-family="ui-monospace, 'SF Mono', 'Cascadia Code', monospace" font-size="13.5" fill="#94a3b8">◆  AI provider</text>
+  <text x="180" y="296" font-family="ui-monospace, 'SF Mono', 'Cascadia Code', monospace" font-size="13.5" fill="#6b7280">│</text>
+  <text x="196" y="296" font-family="ui-monospace, 'SF Mono', 'Cascadia Code', monospace" font-size="13.5" fill="#a78bfa">●  Anthropic (Claude)</text>
+  <text x="180" y="320" font-family="ui-monospace, 'SF Mono', 'Cascadia Code', monospace" font-size="13.5" fill="#6b7280">│</text>
+  <text x="196" y="320" font-family="ui-monospace, 'SF Mono', 'Cascadia Code', monospace" font-size="13.5" fill="#94a3b8">○  OpenAI (GPT)</text>
+  <text x="180" y="344" font-family="ui-monospace, 'SF Mono', 'Cascadia Code', monospace" font-size="13.5" fill="#6b7280">│</text>
+  <text x="196" y="344" font-family="ui-monospace, 'SF Mono', 'Cascadia Code', monospace" font-size="13.5" fill="#94a3b8">○  Google (Gemini)</text>
+  <text x="180" y="368" font-family="ui-monospace, 'SF Mono', 'Cascadia Code', monospace" font-size="13.5" fill="#6b7280">│</text>
+  <text x="196" y="368" font-family="ui-monospace, 'SF Mono', 'Cascadia Code', monospace" font-size="13.5" fill="#94a3b8">○  Mistral AI</text>
+
+  <!-- Generating line -->
+  <text x="180" y="400" font-family="ui-monospace, 'SF Mono', 'Cascadia Code', monospace" font-size="13.5" fill="#6b7280">│</text>
+  <text x="196" y="400" font-family="ui-monospace, 'SF Mono', 'Cascadia Code', monospace" font-size="13.5" fill="#34d399">■  Generating tape with claude-sonnet-4-6...</text>
+
+  <!-- Cursor blink -->
+  <rect x="180" y="418" width="9" height="16" fill="#a78bfa" opacity="0.9">
+    <animate attributeName="opacity" values="0.9;0;0.9" dur="1.2s" repeatCount="indefinite"/>
+  </rect>
+
+  <!-- Right side: workflow pills -->
+
+  <!-- Step 1 -->
+  <rect x="820" y="210" width="280" height="44" rx="8" fill="#1e1b4b" stroke="#4c1d95" stroke-width="1"/>
+  <text x="840" y="228" font-family="ui-monospace, 'SF Mono', monospace" font-size="11" fill="#7c3aed">01</text>
+  <text x="868" y="228" font-family="-apple-system, sans-serif" font-size="13" fill="#c4b5fd" font-weight="500">describe in plain english</text>
+  <text x="840" y="244" font-family="ui-monospace, 'SF Mono', monospace" font-size="11" fill="#6b7280">"show how to use my CLI tool"</text>
+
+  <!-- Arrow -->
+  <line x1="960" y1="254" x2="960" y2="270" stroke="#4c1d95" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <polygon points="955,270 960,278 965,270" fill="#4c1d95"/>
+
+  <!-- Step 2 -->
+  <rect x="820" y="278" width="280" height="44" rx="8" fill="#1a1a2e" stroke="#6d28d9" stroke-width="1"/>
+  <text x="840" y="296" font-family="ui-monospace, 'SF Mono', monospace" font-size="11" fill="#a855f7">02</text>
+  <text x="868" y="296" font-family="-apple-system, sans-serif" font-size="13" fill="#d8b4fe" font-weight="500">AI writes the tape file</text>
+  <text x="840" y="312" font-family="ui-monospace, 'SF Mono', monospace" font-size="11" fill="#6b7280">claude / gpt / gemini / mistral</text>
+
+  <!-- Arrow -->
+  <line x1="960" y1="322" x2="960" y2="338" stroke="#6d28d9" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <polygon points="955,338 960,346 965,338" fill="#6d28d9"/>
+
+  <!-- Step 3 -->
+  <rect x="820" y="346" width="280" height="44" rx="8" fill="#1a1a2e" stroke="#be185d" stroke-width="1"/>
+  <text x="840" y="364" font-family="ui-monospace, 'SF Mono', monospace" font-size="11" fill="#ec4899">03</text>
+  <text x="868" y="364" font-family="-apple-system, sans-serif" font-size="13" fill="#fbcfe8" font-weight="500">VHS records the GIF</text>
+  <text x="840" y="380" font-family="ui-monospace, 'SF Mono', monospace" font-size="11" fill="#6b7280">350+ themes · 30+ fonts · refine loop</text>
+
+  <!-- Divider line between terminal content and right panel -->
+  <line x1="800" y1="174" x2="800" y2="510" stroke="#2a2a4a" stroke-width="1"/>
+
+  <!-- Big title below terminal -->
+  <text x="640" y="566" font-family="-apple-system, 'SF Pro Display', 'Helvetica Neue', sans-serif" font-size="52" font-weight="800" fill="url(#titleGrad)" text-anchor="middle" filter="url(#softglow)">termreel</text>
+  <text x="640" y="600" font-family="-apple-system, 'SF Pro Text', sans-serif" font-size="16" fill="#6b7280" text-anchor="middle" letter-spacing="2">AI-POWERED TERMINAL DEMO RECORDER</text>
+
+  <!-- Bottom accent line -->
+  <rect x="480" y="618" width="320" height="2" rx="1" fill="url(#accentGrad)" opacity="0.6"/>
+</svg>
