@@ -1,6 +1,6 @@
 {
   "name": "termreel",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "AI-powered terminal demo recorder — describe your demo, get a GIF",
   "license": "MIT",
   "repository": "arre-ankit/termreel",
