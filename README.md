@@ -26,7 +26,7 @@ npx termreel new
 npm install -g termreel
 pnpm add -g termreel
 ```
-![termreel demo](https://raw.githubusercontent.com/arre-ankit/zombiefiles/refs/heads/main/.github/termreel-demo.gif)
+![termreel demo](https://raw.githubusercontent.com/arre-ankit/termreel/refs/heads/main/.github/termreel-demo.gif)
 
 
 ## Commands
