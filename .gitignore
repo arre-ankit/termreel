@@ -1,6 +1,7 @@
 node_modules/
 dist/
 *.gif
+!.github/*.gif
 *.mp4
 *.webm
 *.tape

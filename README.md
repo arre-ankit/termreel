@@ -4,6 +4,7 @@
 
 AI-powered terminal demo recorder. Describe what you want to demo in plain English — termreel generates a [VHS](https://github.com/charmbracelet/vhs) tape file, records it into a GIF/MP4/WebM, and lets you refine it with AI in a loop.
 
+
 ## Prerequisites
 
 - [VHS](https://github.com/charmbracelet/vhs) — the terminal recorder under the hood
@@ -25,6 +26,8 @@ npx termreel new
 npm install -g termreel
 pnpm add -g termreel
 ```
+![termreel demo](https://raw.githubusercontent.com/arre-ankit/zombiefiles/refs/heads/main/.github/termreel-demo.gif)
+
 
 ## Commands
 
